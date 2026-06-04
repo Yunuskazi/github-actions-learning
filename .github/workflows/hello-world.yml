@@ -1,4 +1,4 @@
-name: Hello World Workflow
+name: C Program Compile and Execute
 
 on:
   push:
@@ -7,15 +7,35 @@ on:
     branches: [ main ]
 
 jobs:
-  hello:
+  build-and-run:
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
       
-      - name: Say Hello
-        run: echo "Hello from GitHub Actions! 🎉"
+      - name: Display repository files
+        run: echo "📁 Repository Structure:" && ls -la
       
-      - name: Show files
-        run: ls -la
+      - name: Compile C program
+        run: |
+          echo "🔨 Compiling C program..."
+          gcc -o hello hello.c
+          echo "✅ Compilation successful!"
+      
+      - name: Display compiled executable
+        run: |
+          echo "📦 Compiled files:"
+          ls -la hello
+      
+      - name: Execute C program
+        run: |
+          echo "▶️ Running C program output:"
+          ./hello
+          echo ""
+          echo "✨ Program execution completed!"
+      
+      - name: Show all files after execution
+        run: |
+          echo "📋 Final directory contents:"
+          ls -la
